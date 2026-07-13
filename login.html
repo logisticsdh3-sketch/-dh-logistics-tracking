@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DH Logistics Admin Login</title>
+
+<style>
+body{
+font-family:Arial,sans-serif;
+background:#f4f8fc;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+margin:0;
+}
+
+.login-box{
+background:white;
+padding:40px;
+border-radius:15px;
+box-shadow:0 10px 25px rgba(0,0,0,.1);
+width:350px;
+}
+
+h2{
+text-align:center;
+color:#003366;
+}
+
+input{
+width:100%;
+padding:12px;
+margin:10px 0;
+border:1px solid #ccc;
+border-radius:8px;
+}
+
+button{
+width:100%;
+padding:14px;
+background:#007BFF;
+color:white;
+border:none;
+border-radius:8px;
+font-size:18px;
+cursor:pointer;
+}
+
+button:hover{
+background:#005ecb;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="login-box">
+
+<h2>DH Logistics Admin</h2>
+
+<input
+type="email"
+id="email"
+placeholder="Admin Email">
+
+<input
+type="password"
+id="password"
+placeholder="Password">
+
+<button onclick="login()">
+Login
+</button>
+
+</div>
+
+<script>
+
+function login(){
+
+let email=document.getElementById("email").value;
+
+let password=document.getElementById("password").value;
+
+if(email==="admin@dhlogistics.com" && password==="DH2026"){
+
+window.location.href="admin.html";
+
+}else{
+
+alert("Incorrect email or password.");
+
+}
+
+}
+
+</script>
+
+</body>
+</html>
