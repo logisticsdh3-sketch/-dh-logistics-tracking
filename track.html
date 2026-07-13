@@ -1,156 +1,68 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Track Shipment | DH Logistics</title>
+<script type="module">
 
-<style>
-body{
-font-family:Arial,sans-serif;
-background:#f4f8fc;
-margin:0;
-padding:0;
+import { db } from "./firebase.js";
+import { doc, getDoc } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+window.trackShipment = async function(){
+
+const trackingNumber = document
+.getElementById("trackingNumber")
+.value
+.trim()
+.toUpperCase();
+
+const result = document.getElementById("result");
+
+if(!trackingNumber){
+result.style.display="block";
+result.innerHTML="<h2>Please enter a tracking number.</h2>";
+return;
 }
 
-header{
-background:#003366;
-color:white;
-padding:20px;
-text-align:center;
-}
+const docRef = doc(db,"shipments",trackingNumber);
 
-.container{
-max-width:900px;
-margin:40px auto;
-background:white;
-padding:30px;
-border-radius:12px;
-box-shadow:0 5px 20px rgba(0,0,0,.1);
-}
+const docSnap = await getDoc(docRef);
 
-input{
-width:100%;
-padding:15px;
-font-size:18px;
-border:2px solid #007BFF;
-border-radius:8px;
-margin-bottom:20px;
-}
+if(docSnap.exists()){
 
-button{
-background:#007BFF;
-color:white;
-padding:15px 30px;
-border:none;
-border-radius:8px;
-font-size:18px;
-cursor:pointer;
-}
-
-button:hover{
-background:#005ecb;
-}
-
-.result{
-margin-top:30px;
-padding:20px;
-border-left:5px solid #007BFF;
-background:#eef6ff;
-display:none;
-}
-
-.status{
-color:green;
-font-weight:bold;
-font-size:20px;
-}
-</style>
-
-</head>
-
-<body>
-
-<header>
-
-<h1>DH Logistics Shipment Tracking</h1>
-
-</header>
-
-<div class="container">
-
-<h2>Track Your Shipment</h2>
-
-<input id="trackingNumber" placeholder="Enter Tracking Number">
-
-<button onclick="trackShipment()">Track Shipment</button>
-
-<div class="result" id="result"></div>
-
-</div>
-
-<script>
-
-const shipments={
-
-"DH100001":{
-status:"In Transit",
-location:"London, United Kingdom",
-destination:"Lagos, Nigeria",
-delivery:"20 July 2026"
-},
-
-"DH100002":{
-status:"Customs Clearance",
-location:"New York, USA",
-destination:"Abuja, Nigeria",
-delivery:"23 July 2026"
-},
-
-"DH100003":{
-status:"Out For Delivery",
-location:"Uyo, Nigeria",
-destination:"Uyo, Nigeria",
-delivery:"Today"
-}
-
-};
-
-function trackShipment(){
-
-let number=document.getElementById("trackingNumber").value.toUpperCase();
-
-let result=document.getElementById("result");
-
-if(shipments[number]){
-
-let s=shipments[number];
+const s = docSnap.data();
 
 result.style.display="block";
 
 result.innerHTML=`
-<h2>${number}</h2>
+<h2>${s.trackingNumber}</h2>
 
-<p><strong>Status:</strong> <span class="status">${s.status}</span></p>
+<p><strong>Status:</strong>
+<span class="status">${s.status}</span></p>
 
-<p><strong>Current Location:</strong> ${s.location}</p>
+<p><strong>Sender:</strong> ${s.sender}</p>
+
+<p><strong>Receiver:</strong> ${s.receiver}</p>
+
+<p><strong>Origin:</strong> ${s.origin}</p>
 
 <p><strong>Destination:</strong> ${s.destination}</p>
 
-<p><strong>Estimated Delivery:</strong> ${s.delivery}</p>
-`;
+<p><strong>Current Location:</strong> ${s.currentLocation}</p>
 
-}else{
+<p><strong>Weight:</strong> ${s.weight}</p>
+
+<p><strong>Last Updated:</strong> ${s.lastUpdated}</p>
+
+`;
+}
+else{
 
 result.style.display="block";
 
-result.innerHTML="<h2>Tracking Number Not Found</h2><p>Please check your tracking number and try again.</p>";
+result.innerHTML=`
+<h2>Tracking Number Not Found</h2>
+
+<p>Please check the tracking number and try again.</p>
+`;
 
 }
 
 }
 
 </script>
-
-</body>
-</html>
