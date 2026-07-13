@@ -198,7 +198,26 @@ Track Shipment
 <p style="margin-top:20px;">
 © 2026 DH Logistics. All Rights Reserved.
 </p>
+<script>
+const counters = document.querySelectorAll(".count");
 
+counters.forEach(counter => {
+  const update = () => {
+    const target = +counter.dataset.target;
+    const count = +counter.innerText;
+    const increment = target / 200;
+
+    if (count < target) {
+      counter.innerText = Math.ceil(count + increment);
+      setTimeout(update, 15);
+    } else {
+      counter.innerText = target;
+    }
+  };
+
+  update();
+});
+</script>
 </footer>
 
 </body>
