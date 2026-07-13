@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DH Logistics Admin Dashboard</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#f4f8fc;
+}
+
+header{
+background:#003366;
+color:white;
+padding:20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.container{
+max-width:1200px;
+margin:30px auto;
+padding:20px;
+}
+
+.cards{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px;
+margin-bottom:30px;
+}
+
+.card{
+background:white;
+padding:25px;
+border-radius:12px;
+box-shadow:0 5px 15px rgba(0,0,0,.1);
+text-align:center;
+}
+
+.card h2{
+color:#007BFF;
+font-size:36px;
+}
+
+.form{
+background:white;
+padding:25px;
+border-radius:12px;
+box-shadow:0 5px 15px rgba(0,0,0,.1);
+margin-bottom:30px;
+}
+
+input,select{
+width:100%;
+padding:12px;
+margin:10px 0;
+border:1px solid #ccc;
+border-radius:8px;
+}
+
+button{
+background:#007BFF;
+color:white;
+padding:14px 20px;
+border:none;
+border-radius:8px;
+cursor:pointer;
+font-size:16px;
+}
+
+button:hover{
+background:#005ecb;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+background:white;
+box-shadow:0 5px 15px rgba(0,0,0,.1);
+}
+
+th,td{
+padding:15px;
+border-bottom:1px solid #ddd;
+text-align:left;
+}
+
+th{
+background:#003366;
+color:white;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+<h1>DH Logistics Admin</h1>
+
+<button onclick="logout()">Logout</button>
+
+</header>
+
+<div class="container">
+
+<div class="cards">
+
+<div class="card">
+<h2 id="total">0</h2>
+<p>Total Shipments</p>
+</div>
+
+<div class="card">
+<h2 id="transit">0</h2>
+<p>In Transit</p>
+</div>
+
+<div class="card">
+<h2 id="delivered">0</h2>
+<p>Delivered</p>
+</div>
+
+<div class="card">
+<h2 id="customs">0</h2>
+<p>Customs Clearance</p>
+</div>
+
+</div>
+
+<div class="form">
+
+<h2>Add Shipment</h2>
+
+<input id="tracking" placeholder="Tracking Number">
+
+<input id="location" placeholder="Current Location">
+
+<select id="status">
+<option>Shipment Created</option>
+<option>In Transit</option>
+<option>Customs Clearance</option>
+<option>Out for Delivery</option>
+<option>Delivered</option>
+</select>
+
+<button onclick="addShipment()">Add Shipment</button>
+
+</div>
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Tracking Number</th>
+
+<th>Location</th>
+
+<th>Status</th>
+
+</tr>
+
+</thead>
+
+<tbody id="shipments">
+
+</tbody>
+
+</table>
+
+</div>
+
+<script>
+function logout(){
+window.location.href="login.html";
+}
+
+function addShipment(){
+alert("Next we'll connect this button to Firebase so it saves real shipments.");
+}
+</script>
+
+</body>
+</html>
